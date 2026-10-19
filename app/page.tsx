@@ -10,27 +10,33 @@ const EXPERIENCE_PHOTO = "/images/experience.jpg";
 const projects = [
   {
     number: "01",
-    category: "Java · OOP · Database",
-    title: "Plantation Management System",
+    slug: "custom-operating-system",
+    category: "Operating Systems · Collaboration",
+    title: "Custom Operating System",
     description:
-      "An academic project concept for managing harvest records, plantation maintenance, and productivity monitoring for palm oil and rubber plantations.",
-    tags: ["Java Swing", "OOP", "Database"],
+      "A planned collaborative project to explore operating system development and customization with a friend.",
+    tags: ["Operating Systems", "System Development", "Collaboration"],
+    status: "Planned",
   },
   {
     number: "02",
+    slug: "enterprise-network-design",
     category: "Networking · Cisco",
     title: "Enterprise Network Design",
     description:
-      "A computer network design project using Cisco Packet Tracer, covering VLAN configuration, IP addressing, routing, and network services.",
+      "An academic networking project using Cisco Packet Tracer, covering VLAN configuration, IP addressing, routing, and network services.",
     tags: ["Cisco Packet Tracer", "VLAN", "Routing"],
+    status: "Academic Project",
   },
   {
     number: "03",
+    slug: "personal-portfolio",
     category: "Web Development",
     title: "Personal Portfolio Website",
     description:
       "A personal website built to document my background, technical interests, projects, and ongoing learning journey.",
     tags: ["Next.js", "TypeScript", "Tailwind CSS"],
+    status: "In Progress",
   },
 ];
 
@@ -207,7 +213,7 @@ export default function Home() {
         </div>
 
         {menuOpen && (
-          <nav className="animate-in fade-in slide-in-from-top-2 flex flex-col gap-1 border-t border-[#292C27]/10 px-5 py-4 duration-300 md:hidden">
+          <nav className="flex flex-col gap-1 border-t border-[#292C27]/10 px-5 py-4 md:hidden">
             {[...navLinks, ["Contact", "#contact"]].map(([label, href]) => (
               <a
                 key={href}
@@ -299,7 +305,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ABOUT ME — about.jpg */}
+      {/* ABOUT ME */}
       <section id="about" className="border-y border-[#292C27]/10 bg-[#E5DFD2]">
         <div className="mx-auto grid max-w-7xl gap-12 px-5 py-20 sm:px-8 sm:py-28 lg:grid-cols-[0.8fr_1.2fr] lg:items-center lg:gap-20 lg:px-12">
           <div className="relative mx-auto w-full max-w-md lg:mx-0">
@@ -362,7 +368,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* EXPERIENCE — experience.jpg */}
+      {/* EXPERIENCE */}
       <section
         id="experience"
         className="mx-auto max-w-7xl px-5 py-20 sm:px-8 sm:py-28 lg:px-12"
@@ -518,16 +524,18 @@ export default function Home() {
             </h2>
           </div>
           <p className="max-w-sm text-sm leading-7 text-[#68695C]">
-            A selection of academic work and personal projects as I continue
-            developing my skills.
+            Academic work, personal projects, and ideas I&apos;m exploring
+            as I continue developing my skills.
           </p>
         </div>
 
         <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
           {projects.map((project) => (
-            <article
-              key={project.number}
-              className="group flex min-h-[330px] flex-col border border-[#292C27]/15 bg-[#F3EFE5] p-6 transition duration-300 hover:-translate-y-1 hover:border-[#73784F]/50 sm:p-7"
+            <a
+              key={project.slug}
+              href={`/projects/${project.slug}`}
+              aria-label={`View details for ${project.title}`}
+              className="group flex min-h-[370px] flex-col border border-[#292C27]/15 bg-[#F3EFE5] p-6 transition duration-300 hover:-translate-y-1 hover:border-[#73784F]/50 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#73784F] sm:p-7"
             >
               <div className="flex items-center justify-between">
                 <span className="text-xs tracking-[0.16em] text-[#73784F]">
@@ -560,7 +568,16 @@ export default function Home() {
                   </span>
                 ))}
               </div>
-            </article>
+
+              <div className="mt-6 flex items-center justify-between border-t border-[#292C27]/10 pt-4">
+                <span className="text-xs text-[#68695C]">
+                  {project.status}
+                </span>
+                <span className="text-sm font-medium text-[#73784F]">
+                  View details →
+                </span>
+              </div>
+            </a>
           ))}
         </div>
       </section>
